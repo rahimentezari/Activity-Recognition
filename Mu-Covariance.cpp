@@ -6,7 +6,7 @@
 using namespace std;
 using namespace cv;
 
-Mat mu, cov, img;
+Mat mu, cov,;
 Mat_ <float> total(11000000, 3);
 long int total_counter;
 const double PI  =3.141592653589793238463;
@@ -42,15 +42,6 @@ double* segment_avg(Mat segment)
 }
 
 //rectangular segmentation
-static void rectangular_segmentation(Mat input)
-{
-	int height = input.rows/20, width = input.cols/20;
-	int startx = 0, starty = 0;
-	int sumx = 0, sumy = 0;
-	Mat roi = input( Rect(20,30,150,200));
-	imshow("roi_test",roi);
-
-}
 
 long double* avg_calc(int r, int g, int b, char* img_name, char* img_addr, char* img_ext)
 {
@@ -242,77 +233,3 @@ long double* sd_calc(int r, int g, int b, char* img_name, char* img_addr, char* 
 }
 
 
-int main()
-{
-	char* address = "/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/6_7_s.bmp";
-    img = imread(address,1);
-    //imshow("main",img);
-
-    //generate file name
-    for(uchar i = 1; i < 9; i++)
-    	for(uchar j = 1; j < 31; j+=2)
-    	{
-    		char file_name[12];
-    		sprintf(file_name, "%d", i);
-
-    		char temp_j[3];
-
-    		sprintf(temp_j, "%d", j);
-    		strcat(file_name, "_");
-    		strcat(file_name, temp_j);
-    		strcat(file_name, "_s");
-
-    		cout<<file_name<<endl;
-
-    		cout<<"building:\n";
-    		sd_calc(128, 0, 0, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-    	}
-
-    		//cout<<"void:\n";
-    		//sd_calc(0, 0, 0, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"building:\n";
-    		//sd_calc(128, 0, 0, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"grass:\n";
-    		//sd_calc(0, 128, 0, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"tree:\n";
-    		//sd_calc(128, 128, 0, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"cow:\n";
-    		//sd_calc(0, 0, 128, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"sky:\n";
-    		//sd_calc(128, 128, 128, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"airplane:\n";
-    		//sd_calc(192, 0, 0, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"face:\n";
-    		//sd_calc(192, 128, 0, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"car:\n";
-    		//sd_calc(64, 0, 128, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-    		//cout<<"bicycle:\n";
-    		//sd_calc(192, 0, 128, file_name,"/media/amir/New Volume1/Univ/iust/SPR93/project/dataset/MSRC_ObjCategImageDatabase_v1/",".bmp");
-
-
-    if(total_counter != 0)
-    		{
-    		    cv::calcCovarMatrix(total, cov, mu, CV_COVAR_NORMAL | CV_COVAR_ROWS);
-
-    		    cout << "cov: " << endl;
-    		    cout << cov << endl;
-
-    		    cout << "mu: " << endl;
-    		    cout << mu << endl;
-    		}
-    		else cout<<"Not available!\n";
-
-
-//    	cvWaitKey(0);
-    rectangular_segmentation(img);
-	return 0;
-}
